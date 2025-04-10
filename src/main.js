@@ -22,7 +22,7 @@ async function commentsMain() {
     if (bodyElement) {
         const commentBox = document.createElement("div");
         commentBox.id = "comment";
-        commentBox.classList.add("comBox");
+        commentBox.classList.add("comment-box");
         bodyElement.appendChild(commentBox);
         createApp(App).mount('#comment');
     }

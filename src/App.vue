@@ -1,24 +1,24 @@
 <template>
-    <h3 class="comTitle">Comment</h3>
+    <h3 class="comment-title">Comment</h3>
     <div>
-        <div class="comInputBox">
-            <textarea class="comTextInput" rows="4" v-model="comInput"></textarea>
-            <div class="comButtonBox">
-                <button class="comButton" @click="uploadComments" type="button">发送</button>
+        <div class="comment-input-box">
+            <textarea class="comment-input-text" rows="4" v-model="comInput"></textarea>
+            <div class="comment-input-buttom-box">
+                <button class="comment-button" @click="uploadComments">发送</button>
             </div>
         </div>
         <div>
             <div class="comment-item" v-for="comment in comments">
                 <div>
-                    <p class="user_name">{{ comment.name }}</p>
-                    <p class="mes_time">{{ comment.time }}</p>
+                    <p class="comment-message-user">{{ comment.name }}</p>
+                    <p class="comment-message-time">{{ comment.time }}</p>
                 </div>
                 <div>
-                    <p>{{ comment.content }}</p>
+                    <p class="comment-message-text">{{ comment.content }}</p>
                 </div>
             </div>
         </div>
-        <button class="comButton" @click="loadMore" v-show="loadable">显示更多</button>
+        <button class="comment-button" @click="loadMore" v-show="loadable">显示更多</button>
     </div>
 </template>
 
@@ -117,14 +117,22 @@ export default {
 </script>
 
 <style>
-.comTitle {
+.comment-box {
+    width: var(--hope-sizes-full);
+    border-radius: var(--hope-radii-xl);
+    padding: var(--hope-space-4);
+    background-color: white;
+    box-shadow: var(--hope-shadows-lg);
+}
+
+.comment-title {
     margin-bottom: 30px;
     font-size: 1.5em;
     font-weight: 600;
     line-height: 1.25;
 }
 
-.comInputBox {
+.comment-input-box {
     flex: 1 1 0%;
     padding-inline-start: var(--hope-space-5);
     padding-inline-end: var(--hope-space-5);
@@ -132,7 +140,7 @@ export default {
     padding-bottom: var(--hope-space-2);
 }
 
-.comTextInput {
+.comment-input-text {
     resize: none; /* 禁止调整大小 */
     appearance: none;
     position: relative;
@@ -152,25 +160,12 @@ export default {
     transition: color 250ms, border-color 250ms, background-color 250ms, box-shadow 250ms;
 }
 
-.comTextInput:focus {
+.comment-input-text:focus {
     box-shadow: unset;
     border-color: var(--hope-colors-info8);
 }
 
-.comButton {
-    height: var(--hope-sizes-10);
-    padding-top: 0px;
-    padding-bottom: 0px;
-    padding-inline-start: var(--hope-space-4);
-    padding-inline-end: var(--hope-space-4);
-    font-size: var(--hope-fontSizes-base);
-}
-
-.comButton:focus {
-    outline: none;
-}
-
-.comButtonBox {
+.comment-input-buttom-box {
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -178,6 +173,28 @@ export default {
     padding-inline-start: var(--hope-space-5);
     padding-inline-end: var(--hope-space-5);
     padding-bottom: var(--hope-space-5);
+}
+
+.comment-button {
+    height: var(--hope-sizes-10);
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-inline-start: var(--hope-space-4);
+    padding-inline-end: var(--hope-space-4);
+    font-size: var(--hope-fontSizes-base);
+    border-radius: var(--hope-radii-lg);
+    background-color: var(--hope-colors-info4);
+    color: var(--hope-colors-info11);
+    border: 1px solid transparent;
+}
+
+.comment-button:focus {
+    outline: none;
+}
+
+.comment-button:hover {
+    transform: scale(1.01);
+    background-color: rgba(132, 133, 141, 0.18);
 }
 
 .comment-item {
@@ -199,11 +216,11 @@ export default {
     background-color: rgba(132, 133, 141, 0.18);
 }
 
-.mes_info {
+.comment-message-text {
     margin: 0px;
 }
 
-.user_name {
+.comment-message-user {
     font-size: 1.25em;
     color: #000;
 
@@ -214,7 +231,7 @@ export default {
     text-wrap: nowrap;
 }
 
-.mes_time {
+.comment-message-time {
     font-size: 14px;
     color: #707070;
     margin: 10px 0px 10px;
