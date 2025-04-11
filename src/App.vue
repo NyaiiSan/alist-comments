@@ -18,7 +18,7 @@
                 </div>
             </div>
         </div>
-        <button class="comment-button" @click="loadMore" v-show="loadable">显示更多</button>
+        <button class="comment-button" style="margin-top: 10px;" @click="loadMore" v-show="loadable">显示更多</button>
     </div>
 </template>
 
