@@ -34,8 +34,8 @@ commentsMain();
 function chStyle() {
     const color = "#C0ECFC40";
     const imgBackgrounds = [
-        'url("/resource/bg_half.jpg")',
-        'url("/resource/bg_full.jpg")'
+        'url("/resource/bg.jpg")',
+        'url("/resource/bg.jpg")'
     ];
     const styleConfigs = {
         breadcrumb: { background: "transparent" },

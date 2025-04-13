@@ -27,7 +27,7 @@ export default {
     setup() {
         var skip = 0; // 跳过的评论数
         var length = 5; // 每次请求的评论数
-        const request_url = '/comments'; // 发送评论的接口;
+        const request_url = '/comments/'; // 发送评论的接口;
 
         return {
             skip,
@@ -50,7 +50,7 @@ export default {
                     throw new Error(`HTTP error code: ${response.status}`);
                 }
                 const responseData = await response.json();
-                if (responseData.status !== 0) {
+                if (responseData.code !== 0) {
                     throw new Error(responseData.data);
                 }
                 const recv_comments = responseData.data;
@@ -66,8 +66,9 @@ export default {
         },
         async uploadComments() {
             // 判断输入是否为空
-            if (this.comInput == null || this.comInput == '') {
-                alert("输入的内容不可为空");
+            if (this.comInput == null || this.comInput == '' || this.comInput.length > 400) {
+                alert("输入的内容不能为空或超过400个字符! ");
+                this.comInput = null;
                 return ;
             }
 
@@ -83,21 +84,18 @@ export default {
                 if (!response.ok) {
                     throw new Error(`HTTP error code: ${response.status}`);
                 }
-
                 const responseData = await response.json();
-                console.log('response:', responseData);
 
-                if (responseData.status !== 0) {
-                    alert(responseData.data);
-                    throw new Error(responseData.data);
+                alert(responseData.msg);
+                if (responseData.code !== 0) {
+                    throw new Error(responseData.msg);
                 }
-                alert("success");
                 this.resetComments();
 
             } catch (error) {
+                alert('error: ', error);
                 console.error('Push Comments error:', error);
             }
-
         },
         async loadMore() {
             await this.fetchComments();
