@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import '../resource/chStyle.css'
+import './assets/chStyle.css'
 
 async function commentsMain() {
     // 等待直到找到目标元素
@@ -31,12 +31,21 @@ async function commentsMain() {
 
 commentsMain();
 
-function chStyle() {
-    const color = "#C0ECFC40";
-    const imgBackgrounds = [
-        'url("/resource/bg.jpg")',
-        'url("/resource/bg.jpg")'
-    ];
+async function fetchConfig() {
+    const response = await fetch('/resource/chstyle.json');
+    if (!response.ok) {
+        console.error('Failed to fetch configuration:', response.statusText);
+        return {};
+    }
+    return response.json();
+}
+
+async function chStyle() {
+    const styleConfig = await fetchConfig();
+    const color = styleConfig.mainColor || "transparent";
+    const backgroundImg = styleConfig.backgroundImg;
+    const backgroundPosition = styleConfig.backgroundPosition;
+
     const styleConfigs = {
         breadcrumb: { background: "transparent" },
         box: {
@@ -52,9 +61,17 @@ function chStyle() {
     };
 
     function setBackgroundImg(bg) {
+        if (!backgroundImg || !backgroundPosition) return;
+
         const aspectRatio = window.innerWidth / window.innerHeight;
-        bg.style.backgroundImage = aspectRatio <= 9 / 16 ? imgBackgrounds[0] : imgBackgrounds[1];
-        bg.style.backgroundPosition = "bottom";
+        if (aspectRatio <= 9 / 16) {
+            bg.style.backgroundImage = `url(${backgroundImg.horizontal})`;
+            bg.style.backgroundPosition = backgroundPosition.horizontal;
+        }
+        else {
+            bg.style.backgroundImage = `url(${backgroundImg.vertical})`;
+            bg.style.backgroundPosition = backgroundPosition.vertical;
+        }
     }
 
     async function applyStyles(selector, styles, asyncMode = false, sleep = 100) {

@@ -1,0 +1,11 @@
+{
+    "mainColor": "#C0ECFC40",
+    "backgroundImg": {
+        "horizontal": "/resource/bg.jpg",
+        "vertical": "/resource/bg.jpg"
+    },
+    "backgroundPosition": {
+        "horizontal": "bottom",
+        "vertical": "bottom"
+    }
+}
